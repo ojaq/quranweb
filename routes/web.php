@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/quran', [QuranController::class, 'index']);
+Route::get('/surah/{surahNumber}', [QuranController::class, 'detailSurah']);

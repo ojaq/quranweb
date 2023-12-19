@@ -10,9 +10,12 @@
 
 <body>
     <h1>Quran</h1>
-    @if (isset($qData['data']['surahs']['references']))
-        @foreach ($qData['data']['surahs']['references'] as $surah)
-            <h2>{{ $surah['englishName'] }}</h2>
+    @if (isset($quranData['data']['surahs']['references']))
+        @foreach ($quranData['data']['surahs']['references'] as $surah)
+            <h2><a href="{{ url('/surah/' . $surah['number']) }}">{{ $surah['englishName'] }}</a></h2>
+            <p>Number: {{ $surah['number'] }}</p>
+            <p>Name: {{ $surah['name'] }}</p>
+            <p>Translation: {{ $surah['englishNameTranslation'] }}</p>
             <p>Number of Ayahs: {{ $surah['numberOfAyahs'] }}</p>
             <p>Revelation Type: {{ $surah['revelationType'] }}</p>
         @endforeach
