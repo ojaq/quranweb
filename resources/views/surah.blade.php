@@ -10,9 +10,9 @@
     <h1>{{ $surahData['data']['englishName'] }}</h1>
     <h2>Juz: {{ $surahData['data']['ayahs'][0]['juz'] }}</h2>
 
-    @foreach ($surahData['data']['ayahs'] as $ayah)
+    @foreach ($surahData['data']['ayahs'] as $key => $ayah)
         <h3>Ayah {{ $ayah['numberInSurah'] }}</h3>
         <p>{{ $ayah['text'] }}</p>
+        <p>{{ $surahTranslate['data'][0]['ayahs'][$key]['text'] }}</p>
     @endforeach
-</body>
-</html>
+</body

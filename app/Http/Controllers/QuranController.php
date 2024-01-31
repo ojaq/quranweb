@@ -19,10 +19,8 @@ class QuranController extends Controller
         return view('index', ['quranData' => $quranData]);
     }
 
-    public function detailSurah($surahNumber){
-        if (!is_numeric($surahNumber) || $surahNumber < 1 || $surahNumber > 114) {
-            abort(404, 'Surah not found');
-        }
+    public function detailSurah($surahNumber){    
+        $surahTranslate = $this->translateSurah($surahNumber); 
     
         $client = new Client();
         $surahResponse = $client->get('https://api.alquran.cloud/v1/surah/' . $surahNumber, [
@@ -30,8 +28,21 @@ class QuranController extends Controller
                 'Content-Type' => 'application/json',
             ],
         ]);        
-
+    
         $surahData = json_decode($surahResponse->getBody(), true);
-        return view('surah', ['surahData' => $surahData]);
+        return view('surah', ['surahData' => $surahData, 'surahTranslate' => $surahTranslate]);
+    }
+
+
+    public function translateSurah($surahNumber){
+        $client = new Client();
+        $surahResponse = $client->get("https://api.alquran.cloud/v1/surah/$surahNumber/editions/id.indonesian", [
+            'headers' => [
+                'Content-Type' => 'application/json',
+            ],
+        ]);
+    
+        $surahTranslate = json_decode($surahResponse->getBody(), true);
+        return $surahTranslate; // Return the decoded JSON data
     }
 }
